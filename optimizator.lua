@@ -1,5 +1,4 @@
 -- Script by Str0iteL
--- Repository: https://github.com/Str0iteL/RobloxOptimizer/tree/main
 -- License: Non-commercial use only. See LICENSE for details.
 
 local player = game.Players.LocalPlayer
@@ -76,13 +75,9 @@ local function disableParticles()
     end
 end
 
--- Оптимизация звуков
-local function optimizeSounds()
-    for _, sound in pairs(workspace:GetDescendants()) do
-        if sound:IsA("Sound") then
-            sound.Volume = 0.1  -- Уменьшаем громкость всех звуков
-        end
-    end
+-- Отключение звуков
+local function disableSounds()
+    soundService:SetVolume(0)
 end
 
 -- Отключение ненужных сервисов
@@ -142,21 +137,6 @@ local function optimizeLightingForDistance(player)
     end
 end
 
--- Оптимизация физических объектов с учетом расстояния от игрока
-local function optimizePhysicsBasedOnDistance(player)
-    local playerPosition = player.Character.HumanoidRootPart.Position
-    for _, part in pairs(workspace:GetDescendants()) do
-        if part:IsA("Part") or part:IsA("MeshPart") then
-            local distance = (part.Position - playerPosition).Magnitude
-            if distance > 1000 then  -- Если объект слишком далеко
-                part.Anchored = true  -- Отключаем физику
-            else
-                part.Anchored = false  -- Включаем физику для объектов рядом
-            end
-        end
-    end
-end
-
 -- Применение оптимизаций для всех объектов с тегом
 local function optimizeTaggedObjects()
     for _, part in pairs(collectionService:GetTagged("Optimizable")) do
@@ -166,26 +146,30 @@ local function optimizeTaggedObjects()
     end
 end
 
--- Параллельные операции для улучшения производительности
-local function optimizeGameParallel(player)
+-- Применение полных оптимизаций
+local function optimizeGame(player)
+    -- Делаем асинхронное выполнение задач, чтобы не блокировать основной поток
     coroutine.wrap(function()
         removeTextures()
         optimizeLighting()
-    end)()
-
-    coroutine.wrap(function()
         disableParticles()
-        optimizeSounds()
+        disableSounds()
+        disableServices()
         hideParts()
+        stopAnimations()
+        removeCameras()
+        disablePhysics()
+        optimizeLightingForDistance(player)
+        optimizeTaggedObjects()
     end)()
 
     -- Ограничение FPS
     setFPSLimit()
 end
 
--- Главный цикл с дополнительными улучшениями
+-- Главный цикл с уменьшенным интервалом
 while true do
-    optimizeGameParallel(player)
-    optimizePhysicsBasedOnDistance(player)  -- Оптимизация физики
+    local player = game.Players.LocalPlayer
+    optimizeGame(player)
     wait(0.05)  -- Уменьшаем интервал для более частой оптимизации
 end
