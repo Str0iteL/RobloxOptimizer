@@ -10,13 +10,14 @@ local textLabel = Instance.new("TextLabel")
 
 -- Настройка ScreenGui
 screenGui.Name = "CustomLabel"
+screenGui.IgnoreGuiInset = true  -- Отключаем автоматические отступы
 screenGui.Parent = player:WaitForChild("PlayerGui")
 
 -- Настройка TextLabel
 textLabel.Name = "TgLabel"
 textLabel.Parent = screenGui
-textLabel.Size = UDim2.new(1, 0, 0.08, 0)  -- Чуть меньше по высоте
-textLabel.Position = UDim2.new(0, 0, 0.02, 0)  -- Чуть ниже верхней границы экрана
+textLabel.Size = UDim2.new(1, 0, 0.08, 0)  -- Высота текста: 8% от экрана
+textLabel.Position = UDim2.new(0, 0, 0, 0)  -- Текст вплотную к верхней границе
 textLabel.BackgroundTransparency = 1  -- Прозрачный фон
 textLabel.Text = "Tg: @AntiScamTrade_bot"
 textLabel.Font = Enum.Font.SourceSansBold  -- Жирный текст
