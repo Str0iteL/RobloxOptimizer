@@ -76,9 +76,13 @@ local function disableParticles()
     end
 end
 
--- Отключение звуков
-local function disableSounds()
-    soundService:SetVolume(0)
+-- Оптимизация звуков
+local function optimizeSounds()
+    for _, sound in pairs(workspace:GetDescendants()) do
+        if sound:IsA("Sound") then
+            sound.Volume = 0.1  -- Уменьшаем громкость всех звуков
+        end
+    end
 end
 
 -- Отключение ненужных сервисов
@@ -138,6 +142,21 @@ local function optimizeLightingForDistance(player)
     end
 end
 
+-- Оптимизация физических объектов с учетом расстояния от игрока
+local function optimizePhysicsBasedOnDistance(player)
+    local playerPosition = player.Character.HumanoidRootPart.Position
+    for _, part in pairs(workspace:GetDescendants()) do
+        if part:IsA("Part") or part:IsA("MeshPart") then
+            local distance = (part.Position - playerPosition).Magnitude
+            if distance > 1000 then  -- Если объект слишком далеко
+                part.Anchored = true  -- Отключаем физику
+            else
+                part.Anchored = false  -- Включаем физику для объектов рядом
+            end
+        end
+    end
+end
+
 -- Применение оптимизаций для всех объектов с тегом
 local function optimizeTaggedObjects()
     for _, part in pairs(collectionService:GetTagged("Optimizable")) do
@@ -147,30 +166,26 @@ local function optimizeTaggedObjects()
     end
 end
 
--- Использование корутин для асинхронного выполнения задач
-local function optimizeGame(player)
-    -- Делаем асинхронное выполнение задач, чтобы не блокировать основной поток
+-- Параллельные операции для улучшения производительности
+local function optimizeGameParallel(player)
     coroutine.wrap(function()
         removeTextures()
         optimizeLighting()
+    end)()
+
+    coroutine.wrap(function()
         disableParticles()
-        disableSounds()
-        disableServices()
+        optimizeSounds()
         hideParts()
-        stopAnimations()
-        removeCameras()
-        disablePhysics()
-        optimizeLightingForDistance(player)
-        optimizeTaggedObjects()
     end)()
 
     -- Ограничение FPS
     setFPSLimit()
 end
 
--- Главный цикл с уменьшенным интервалом
+-- Главный цикл с дополнительными улучшениями
 while true do
-    local player = game.Players.LocalPlayer
-    optimizeGame(player)
+    optimizeGameParallel(player)
+    optimizePhysicsBasedOnDistance(player)  -- Оптимизация физики
     wait(0.05)  -- Уменьшаем интервал для более частой оптимизации
 end
