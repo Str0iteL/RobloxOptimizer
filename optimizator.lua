@@ -3,6 +3,31 @@
 -- License: Non-commercial use only. See LICENSE for details.
 
 
+-- Создание GUI надписи
+local player = game.Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui")
+local textLabel = Instance.new("TextLabel")
+
+-- Настройка ScreenGui
+screenGui.Name = "CustomLabel"
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Настройка TextLabel
+textLabel.Name = "TgLabel"
+textLabel.Parent = screenGui
+textLabel.Size = UDim2.new(1, 0, 0.08, 0)  -- Чуть меньше по высоте
+textLabel.Position = UDim2.new(0, 0, 0.02, 0)  -- Чуть ниже верхней границы экрана
+textLabel.BackgroundTransparency = 1  -- Прозрачный фон
+textLabel.Text = "Tg: @AntiScamTrade_bot"
+textLabel.Font = Enum.Font.SourceSansBold  -- Жирный текст
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Белый цвет
+textLabel.TextStrokeTransparency = 0  -- Обводка текста
+textLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)  -- Черный цвет обводки
+textLabel.TextSize = 30  -- Размер текста
+textLabel.TextScaled = true  -- Автоматическое масштабирование текста
+textLabel.ZIndex = 10  -- Приоритет отображения
+
+
 -- Оптимизация графики
 local lighting = game:GetService("Lighting")
 local soundService = game:GetService("SoundService")
