@@ -1,4 +1,4 @@
-#RobloxOptimizer
+# RobloxOptimizer
 
 This script is designed to optimize the performance of Roblox games by reducing graphical and computational load. It is ideal for improving the performance of the game on low-end devices by disabling unnecessary features, such as textures, lighting effects, particles, sounds, animations, and physics.
 
