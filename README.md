@@ -1,33 +1,58 @@
 # RobloxOptimizer
 
-This script is designed to optimize the performance of Roblox games by reducing graphical and computational load. It is ideal for improving the performance of the game on low-end devices by disabling unnecessary features, such as textures, lighting effects, particles, sounds, animations, and physics.
+---
 
-## Features:
-- **Texture Removal:** Replaces all textures with blank ones to reduce graphical load.
-- **Lighting Optimization:** Removes unnecessary objects from the `Lighting` service, disables global shadows, reduces ambient lighting to the minimum, removes the skybox, and sets the lowest quality level for graphics.
-- **Particle Disabling:** Disables all particle effects (`ParticleEmitter`) to improve performance.
-- **Sound Disabling:** Sets the volume of all sounds to zero, effectively muting them.
-- **Service Disabling:** Disables `StarterGui` and clears the `ReplicatedStorage` to minimize resource usage.
-- **Object Hiding:** Hides all parts and mesh parts in the game and disables their collisions to reduce unnecessary calculations.
-- **Animation Stopping:** Stops all running animations to free up resources.
-- **Camera Removal:** Destroys all cameras in the game to reduce unnecessary processing.
-- **Physics Disabling:** Disables physics on all objects not interacting with the player by setting them to `Anchored`.
-- **Distance-Based Lighting Optimization:** Reduces lighting and material quality for objects far away from the player (over 1000 units), improving performance for distant objects.
+### **Описание**
 
-## Usage:
-1. Add the script to your game.
-2. When the game runs, it will automatically apply the optimizations listed above.
-3. The script continuously runs in the background with a short interval (0.1 seconds) to ensure the game remains optimized during gameplay.
+Этот скрипт предназначен для оптимизации производительности в Roblox, улучшая FPS и снижая нагрузку на систему, отключая ненужные графические элементы и сервисы. Скрипт включает множество функций, таких как скрытие объектов, отключение частиц, изменение качества графики и другие действия, которые могут помочь улучшить производительность на слабых устройствах.
 
-## Requirements:
-- The script works with Roblox Studio and requires the `LocalPlayer` and `Workspace` services to be accessible.
-- It is best suited for games where performance optimization is needed, especially on lower-end devices.
+---
 
-## License:
-This script is licensed for **non-commercial use only**. Redistribution is allowed, but the repository link **must** be included in any usage or distribution of the script.
+### **Функции**
 
-Repository link:  
-[https://github.com/Str0iteL/RobloxOptimizer/tree/main](https://github.com/Str0iteL/RobloxOptimizer/tree/main)
+1. **Оптимизация графики**:
+   - Отключение глобальных теней и настройка минимального освещения.
+   - Удаление или замена текстур на пустые для улучшения производительности.
+   - Отключение качества графики до минимального уровня.
 
-## Disclaimer:
-This script is not responsible for any potential issues or crashes that may occur due to improper use. Use at your own risk. The author does not provide any support for modifying or extending the script.
+2. **Отключение частиц и звуков**:
+   - Отключение всех частиц (например, дым, искры и т.д.) и звуковых эффектов для минимизации нагрузки на процессор.
+
+3. **Удаление объектов и физики**:
+   - Удаление или скрытие всех объектов, которые не взаимодействуют с игроком, включая части, анимации и камеры.
+   - Отключение физики для объектов, которые не участвуют в столкновениях или взаимодействиях.
+
+4. **Оптимизация освещения для дальних объектов**:
+   - Уменьшение качества освещения для объектов, находящихся далеко от игрока, что помогает снизить нагрузку на систему при просмотре удалённых объектов.
+
+5. **Отключение ненужных сервисов**:
+   - Отключение различных сервисов Roblox, таких как GUI и ReplicatedStorage, чтобы избежать лишней нагрузки.
+
+6. **Ограничение FPS**:
+   - Включение функции, которая ограничивает количество кадров в секунду для улучшения стабильности работы игры.
+
+---
+
+### **Как использовать**
+
+1. **Инжектор**: Для использования скрипта вам потребуется инжектор, например, Delta или другие популярные инжекторы, которые вам более удобны.
+2. **Мобильная версия**: Скрипт был проверен на мобильных устройствах, и на телефоне он работает корректно.
+3. Скопируйте весь код и вставьте его в инжектор.
+4. Запустите скрипт, и скрипт начнёт автоматически работать, оптимизируя игру.
+
+---
+
+### **Заметки**
+
+- Этот скрипт является примером оптимизации игры и может быть изменён под конкретные требования или условия проекта.
+- Используется для уменьшения графической нагрузки, поэтому подходит для использования на слабых устройствах или при оптимизации в играх с большими мирами.
+- Скрипт имеет **лицензию для некоммерческого использования**. Все права на использование или модификацию скрипта для других целей должны быть согласованы с автором.
+
+---
+
+### **Автор**
+
+- **Script by Str0iteL**
+- Лицензия: Только для некоммерческого использования. Подробности смотрите в файле LICENSE.
+
+---
